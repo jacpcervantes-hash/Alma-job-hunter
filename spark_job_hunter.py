@@ -136,11 +136,13 @@ def run_spark_pipeline():
 
     gemini_eval_udf = udf(evaluate_job_with_gemini, gemini_schema)
 
-    # 🎯 Búsquedas orientadas a Marketing, Trade Marketing y Brand Analyst en CDMX (últimos 7 días)
+        # 🎯 Búsquedas 100% enfocadas en Marketing, Trade Marketing y Brand Analyst en CDMX
     queries = {
         "Marketing_Brand": "Marketing Brand Specialist Analyst",
-        "Trade_Marketing": "Trade Marketing Analyst Specialist"
+        "Trade_Marketing": "Trade Marketing Analyst Specialist",
+        "Comercial_Commercial": "Commercial Analyst Marketing Mexico"
     }
+
 
     all_jobs = []
     for category, q in queries.items():
