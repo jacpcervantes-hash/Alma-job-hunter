@@ -11,10 +11,9 @@ from pyspark.sql.functions import col, lower, when, lit, desc, udf
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 
 CANDIDATE_PROFILE = """
-- Formación: Ingeniería Química con Especialidad en Gestión de Proyectos (Project Management).
-- Experiencia: R&D Scientist y Project Manager en transnacional de consumo masivo (Colgate-Palmolive), formulación de cuidado personal.
-- Herramientas: Microsoft Project, EVM, PMI/PMBOK, Stage-Gate.
-- Sueldo actual: $27,000 MXN brutos. Busco entre $30,000 y $42,000 MXN brutos en CDMX/Área Metropolitana en nivel Specialist, Analyst o Coordinator (No Gerente/Manager, No Becario/Intern).
+- Formación: Ingeniería Industrial con Especialidad en Gestión de Proyectos (Project Management).
+- Experiencia: Marketing Intern en Nestlé, Sales Intern en Dell, Sales Analyst en Grupo Alen. Busca posiciones marketing o trade marketing
+- Sueldo actual: $25,000 MXN brutos. Busco entre $25,000 y $30,000 MXN brutos en CDMX/Área Metropolitana en nivel Specialist, Analyst o Coordinator (No Gerente/Manager, No Becario/Intern).
 """
 
 gemini_schema = StructType([
