@@ -1,0 +1,46 @@
+name: PySpark Job Hunter CDMX
+
+on:
+  schedule:
+    # Corre automáticamente todos los lunes y jueves a las 7:00 AM (hora CDMX)
+    - cron: '0 13 * * 1,4'
+  workflow_dispatch: # Activa el botón manual para correrlo cuando quieras
+
+permissions:
+  contents: write
+
+jobs:
+  spark-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Instalar Java 17 para Apache Spark
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 3. Configurar Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 4. Instalar PySpark, JobSpy y Gemini SDK
+        run: pip install pyspark python-jobspy pandas google-genai
+
+      - name: 5. Ejecutar Pipeline PySpark + UDF Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python spark_job_hunter.py
+
+      - name: 6. Guardar tabla CSV de vacantes en el repositorio
+        run: |
+          if [ -f vacantes_evaluadas_gemini_spark.csv ]; then
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git add vacantes_evaluadas_gemini_spark.csv
+            git commit -m "Actualización automática de vacantes R&D y PMO" || echo "Sin cambios nuevos"
+            git push
+          fi
